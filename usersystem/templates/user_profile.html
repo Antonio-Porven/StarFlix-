@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <h2>Watch List</h2>
+    <h3>Movies</h3>
+    <ul>
+        {% for show in show_list %}
+            <li><a href="{% url 'show-show' show.id %}">{{  show.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h3>TV Shows</h3>
+    <ul>
+        {% for show in show_list %}
+            <li><a href="{% url 'show-show' show.id %}">{{ show.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+	

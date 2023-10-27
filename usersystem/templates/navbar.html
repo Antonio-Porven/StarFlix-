@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><img src = "{% static "website_images/logo.png"%} " alt = 'no image found' width="70" height="30"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'showlist' %}">Shows</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'showgenrelist' %}">Shows by Genre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'movielist' %}">Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'moviegenrelist' %}">Movies by Genre</a>
+                </li>
+
+            </ul>
+
+            <center>
+            <form class="d-flex" method = POST action = "{% url 'searchResults' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name = "result">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </form>
+            </center>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'userprofile' request.user.id %}">Profile</a>
+                </li>
+            {% else %}
+            <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">signup</a>
+                </li>
+            {% endif %}
+        </div>
+    </div>
+</nav>
