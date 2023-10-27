@@ -82,7 +82,18 @@
     </center>
     <br>
     <div style="text-align: left; width: 50%; color: Gold;">
-        <h2>Rate this {{ content_type }}:</h2>
+        <h2>Comments {{ content_type }}:</h2>
     </div>
+
+   {% if show.showcomments_set.exists %}
+    {% for comment in show.showcomments_set.all %}
+        {{ comment.user.profile }}
+        {{ comment.comment }}
+        <br>
+    {% endfor %}
+{% else %}
+    No comments Yet...
+{% endif %}
+
 </body>
 </html>

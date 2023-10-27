@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Category, Show, Movie,Profile, Showrating, Movierating
+from .models import Category, Show, Movie,Profile, Showrating, Movierating,Showcomments
 # Register your models here.
 
 
@@ -9,6 +9,7 @@ admin.site.register(Movie)
 admin.site.register(Category)
 admin.site.register(Showrating)
 admin.site.register(Movierating)
+admin.site.register(Showcomments)
 #admin.site.register(Profile)
 
 admin.site.unregister(User)

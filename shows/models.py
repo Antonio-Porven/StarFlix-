@@ -42,6 +42,16 @@ class Showrating(models.Model):
         return self.rating
 
 
+class Showcomments(models.Model):
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField('comment', null = False, max_length= 255)
+    date_added = models.DateField(auto_now_add= TRUE)
+    def __str__(self):
+        return '%s - %s' % (self.show.Name, self.user )
+
+
+
 class Movie(models.Model):
     id = models.AutoField(primary_key= True)
     Name = models.CharField('Movie Name', max_length= 120)
