@@ -22,9 +22,10 @@
         </div>
     <div class="col-md-8">
       <div class="card-body">
-          <div style="text-align: left;">
+          <div style="text-align: left;color: yellow">
 
-          <a class="nav-link" name = "genreresult" href="{% url 'showgenreresults' %}"><h5 class="card-title"><b>{{ Category.Genre }}</b></h5></a>
+          <a class="nav-link" href="{% url 'moviegenreresults' Category.id%}">
+              <h5 class="card-title"><b>{{ Category.Genre }}</b></h5></a>
 </div>
       </div>
     </div>

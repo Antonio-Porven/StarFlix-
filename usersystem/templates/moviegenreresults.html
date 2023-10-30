@@ -1,7 +1,6 @@
 {%include 'navbar.html' %}
 <!doctype html>
 <html lang="en">
-<body style="background-color:Black;">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,37 +11,32 @@
 
     <title>StarFlix.com</title>
 </head>
-<body>
+<body style="background-color:Black;">
+
 <br></br>
+
 <center>
-{% if result %}
-
-
-<h1>Results</h1>
-
-{% for show in show %}
-    <div class="card  mb-3" style="max-width: 1000px;" >
-     <div class="row">
-     <div class="col-md-4">
-         <div style="text-align: left;">
-          <a class="nav-link active" aria-current="page" href="{% url 'show-show' show.id %}"><img src = "{{ show.Cover_Image.url}} "
+    {% for movie in movies %}
+        <div class="card  mb-3" style="max-width: 1000px;" >
+  <div class="row">
+    <div class="col-md-4">
+        <div style="text-align: left;">
+        <a class="nav-link active" aria-current="page" href="{% url 'movie-movie' movie.id %}"><img src = "{{ movie.Cover_Image.url}} "
                                                                                                  class="rounded float-start" alt = 'no image found' width = '200' height=" 360"></a>
+    </div>
+        </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <div style="text-align: left;">
+          <a class="nav-link" href="{% url 'movie-movie' movie.id%}"><h5 class="card-title"><b>{{ movie.Name }}</b></h5></a>
+        <p class="card-text">{{ movie.summary }}</p>
+</div>
       </div>
-           </div>
-       <div class="col-md-8">
-         <div class="card-body">
-             <div style="text-align: left;">
-             <a class="nav-link" href="{% url 'show-show' show.id%}"><h5 class="card-title"><b>{{ show.Name }}</b></h5></a>
-           <p class="card-text">{{ show.summary }}</p>
     </div>
-         </div>
-       </div>
-     </div>
-    </div>
+  </div>
+</div>
 {% endfor %}
-{% else %}
-    <h1>Not Found</h1>
-{% endif %}
 </center>
+
 </body>
 </html>

@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<body style="background-color: Black;">
-{% load static %}
+
 <head>
+    {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <style type="text/css">
-
         .noUnderline a:hover {
             text-decoration: none;
         }
@@ -43,47 +42,75 @@
             padding: 10px;
         }
 
+        hr {
+            border: 3px solid yellow;
+            width: 870px;
+            color: yellow;
+        }
     </style>
 
     <title>StarFlix.com</title>
 </head>
-<body>
+
+<body style="background-color: Black; text-align: center;">
+
     {% include 'navbar.html' %}
-    <br></br>
-    <center>
-        <div style="text-align: left; width: 50%; color: White;">
-            <h1><strong>{{ movie.Name }}</strong></h1>
-        <h1><strong>{{ movie.Avgrating}}
-            <img src = "{% static "website_images/star.png"%} " alt = 'no image found' width="50" height="50"></strong></h1>
-            <div class="flex-container">
-                <div>
-                    <img src="{{ movie.Cover_Image.url }}" alt="Content Cover Image" width="300" height="480">
-                </div>
-                <div>
-                    <iframe width="540" height="480" src="https://www.youtube.com/embed/{{ movie.youtubeVideoKey }}"></iframe>
+    <br>
+    <div style="text-align: left; width: 50%; color: White; display: inline-block; text-align: left;">
+        <h1><strong>{{ movie.Name }}</strong></h1>
+        <h1><strong>{{ movie.Avgrating|floatformat:"2"}}
+            <img src="{% static "website_images/star.png"%}" alt='no image found' width="50" height="50"></strong></h1>
+        <div class="flex-container">
+            <div>
+                <img src="{{ movie.Cover_Image.url }}" alt="Content Cover Image" width="300" height="480">
+            </div>
+            <div>
+                <iframe width="540" height="480" src="https://www.youtube.com/embed/{{ movie.youtubeVideoKey }}"></iframe>
+            </div>
+        </div>
+        <hr>
+        <p>{% if movie.number_ep %}Number of Episodes: {{ movie.number_ep }}{% endif %}</p>
+
+    <div style="text-align: left; width: 50%; color: Gold; display: inline-block; text-align: left;">
+        <h2><strong>Summary: </strong></h2>
+    </div>
+        <p>{{ movie.summary }}</p>
+        Genres:
+        {% for genre in movie.Genre.all %}
+            {{ genre }}
+        {% endfor %}
+    <hr>
+    </div>
+
+    <br>
+
+    <div style="text-align: left; width: 50%; color: Gold; display: inline-block; text-align: left;">
+        <h2><strong>Comments {{ content_type }}:</strong></h2>
+    </div>
+
+    {% if movie.moviecomments_set.exists %}
+        {% for comment in movie.moviecomments_set.all %}
+            <div class="card mb-3" style="max-width: 1000px;text-align: left;
+            width: 50%; display: inline-block;">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div style="text-align: left;">
+                            <a class="nav-link" href="{% url 'userprofile' comment.user.id %}">
+                                <h5 class="card-title"><b>{{ comment.user }}</b></h5>
+                            </a>
+                            <p class="card-text">{{ comment.comment }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-      <style>
-  hr {
-    border: 3px solid yellow;
-    width: 870px;
-    color: yellow;
-  }
-</style>
-            <hr>
-            <p>{% if movie.number_ep %}Number of Episodes: {{ movie.number_ep }}{% endif %}</p>
-            <p>Summary: {{ movie.summary }}</p>
-            Genres:
-            {% for genre in movie.Genre.all %}
-                {{ genre }}
-            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <br>
+        <div style="text-align: left; width: 50%; color: White; display: inline-block; text-align: left;">
+        No comments Yet...
         </div>
-    </center>
-    <br>
-    <div style="text-align: left; width: 50%; color: Gold;">
-
-    <h2>Rate this {{ content_type }}:</h2>
-
+    {% endif %}
 
 </body>
+
 </html>

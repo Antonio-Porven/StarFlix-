@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<body style="background-color: Black;">
-{% load static %}
+
 <head>
+    {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <style type="text/css">
-
         .noUnderline a:hover {
             text-decoration: none;
         }
@@ -43,57 +42,84 @@
             padding: 10px;
         }
 
+        hr {
+            border: 3px solid yellow;
+            width: 870px;
+            color: yellow;
+        }
+
+        .comments-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px; /* Adjust as needed for spacing between comment cards */
+        }
     </style>
 
     <title>StarFlix.com</title>
 </head>
-<body>
-    {% include 'navbar.html' %}
-    <br></br>
-    <center>
-        <div style="text-align: left; width: 50%; color: White;">
-            <h1><strong>{{ show.Name }}</strong></h1>
-        <h1><strong>{{ show.Avgrating}}
-            <img src = "{% static "website_images/star.png"%} " alt = 'no image found' width="50" height="50"></strong></h1>
-            <div class="flex-container">
-                <div>
-                    <img src="{{ show.Cover_Image.url }}" alt="Content Cover Image" width="300" height="480">
-                </div>
-                <div>
-                    <iframe width="540" height="480" src="https://www.youtube.com/embed/{{ show.youtubeVideoKey }}"></iframe>
-                </div>
-            </div>
 
-             <style>
-  hr {
-    border: 3px solid yellow;
-    width: 870px;
-    color: yellow;
-  }
-</style>
-        <hr>
-            <p>{% if show.number_ep %}Number of Episodes: {{ show.number_ep }}{% endif %}</p>
-            <p>Summary: {{ show.summary }}</p>
-            Genres:
-            {% for genre in show.Genre.all %}
-                {{ genre }}
-            {% endfor %}
-        </div>
-    </center>
+<body style="background-color: Black; text-align: center;">
+
+    {% include 'navbar.html' %}
     <br>
-    <div style="text-align: left; width: 50%; color: Gold;">
-        <h2>Comments {{ content_type }}:</h2>
+
+    <div style="text-align: left; width: 50%; color: White; display: inline-block; text-align: left;">
+        <h1><strong>{{ show.Name }}</strong></h1>
+        <h1><strong>{{ show.Avgrating|floatformat:"2"}}
+            <img src="{% static "website_images/star.png"%}" alt='no image found' width="34" height="34"></strong></h1>
+        <div class="flex-container">
+            <div>
+                <img src="{{ show.Cover_Image.url }}" alt="Content Cover Image" width="300" height="480">
+            </div>
+            <div>
+                <iframe width="540" height="480" src="https://www.youtube.com/embed/{{ show.youtubeVideoKey }}"></iframe>
+            </div>
+        </div>
+        <hr>
+        <p>{% if show.number_ep %}Number of Episodes: {{ show.number_ep }}{% endif %}</p>
+        <p>Summary: {{ show.summary }}</p>
+        Genres:
+        {% for genre in show.Genre.all %}
+            {{ genre }}
+        {% endfor %}
+        <hr>
     </div>
 
-   {% if show.showcomments_set.exists %}
-    {% for comment in show.showcomments_set.all %}
-        {{ comment.user.profile }}
-        {{ comment.comment }}
-        <br>
-    {% endfor %}
-{% else %}
-    No comments Yet...
-{% endif %}
+    <br>
+
+    <div style="text-align: left; width: 50%; color: Gold; display: inline-block; text-align: left;">
+        <h2><strong>Comments {{ content_type }}:</strong></h2>
+    </div>
+
+ <div class="text-center mb-5">
+    <div class="comments-container">
+        {% if show.showcomments_set.exists %}
+            {% for comment in show.showcomments_set.all %}
+                <div class="card mb-3" style="max-width: 840px;text-align: left;">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div style="text-align: left;">
+                                <a class="nav-link" href="{% url 'userprofile' comment.user.id %}">
+                                    <h5 class="card-title"><b>{{ comment.user }}</b></h5>
+                                </a>
+                                <p class="card-text">{{ comment.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3"></div> <!-- Add this line for spacing -->
+            {% endfor %}
+        {% else %}
+            <div class="text-center">No comments Yet...</div>
+        {% endif %}
+    </div>
+</div>
+
+
 
 </body>
+
 </html>
+
+

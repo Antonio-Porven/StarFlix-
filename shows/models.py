@@ -17,6 +17,10 @@ class Category(models.Model):
     def __str__(self):
         return self.Genre
 
+    def GenreSort(self):
+        genresort = Show.objects.filter(Genre__show= "action")
+        return genresort
+
 
 class Show(models.Model):
     id = models.AutoField(primary_key= True)
@@ -33,6 +37,7 @@ class Show(models.Model):
     def Avgrating(self):
         avg_rating = self.showrating_set.aggregate(avg_rating=Avg('rating'))['avg_rating']
         return avg_rating
+
 
 class Showrating(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)

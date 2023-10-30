@@ -2,28 +2,13 @@ from django.shortcuts import render, redirect
 from .models import Show, Movie,Category, Profile
 # Create your views here.
 
-def moviegenreresults(request):
-    if request.method == 'POST':
-        genreresult = request.POST['genreresult']
-        Category = Show.objects.filter(Genre__contains = genreresult)
-        return render(request, 'moviegenreresults.html',
-                      {'genreresult': genreresult,
-                       'Category': Category})
-    else:
-        return render(request, 'moviegenreresults.html',
-                      {})
+def moviegenreresults(request, category_id):
+    movies = Movie.objects.filter(Genre=category_id)
+    return render(request, 'moviegenreresults.html', {'movies': movies})
 
-
-def showgenreresults(request):
-    if request.method == 'POST':
-        genreresult = request.POST['genreresult']
-        Category = Show.objects.filter(Genre__contains = genreresult)
-        return render(request, 'showgenreresults.html',
-                      {'genreresult': genreresult,
-                       'Category': Category})
-    else:
-        return render(request, 'showgenreresults.html',
-                      {})
+def showgenreresults(request, category_id):
+    shows = Show.objects.filter(Genre=category_id)
+    return render(request, 'showgenreresults.html', {'shows': shows})
 
 
 def searchResults(request):
@@ -52,6 +37,10 @@ def genrelist(request):
     Category_list = Category.objects.all()
     return render(request , 'showgenrelist.html',
     {'Category_list' : Category_list})
+def moviegenrelist(request):
+    Category_list = Category.objects.all()
+    return render(request , 'moviegenrelist.html',
+    {'Category_list' : Category_list})
 def movielist(request):
     movie_list = Movie.objects.all()
     return render(request , 'movielist.html',
@@ -59,8 +48,9 @@ def movielist(request):
 
 def moviemovie(request, movie_id):
     movie = Movie.objects.get(pk = movie_id)
+    Category_list = Category.objects.all()
     return render(request , 'moviemovie.html',
-    {'movie' : movie} )
+    {'movie' : movie,'Category_list' : Category_list} )
 
 
 def profile(request, pk):

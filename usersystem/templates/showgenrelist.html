@@ -24,19 +24,12 @@
                 <div class="card-body">
                     <div style="text-align: left;">
 
-                       <a class="nav-link" href="{% url 'showgenreresults' category_id=Category.id %}">
+                       <a class="nav-link" href="{% url 'showgenreresults' Category.id %}">
 
                             <h5 class="card-title">
                                 <b>{{ Category.Genre }}</b>
                             </h5>
                         </a>
-
-                        <h1>{{ show.Name }}</h1>
-                        <ul>
-                            {% for genre in genres %}
-                                <li>{{ genre.Genre }}</li>
-                            {% endfor %}
-                        </ul>
                     </div>
                 </div>
             </div>
