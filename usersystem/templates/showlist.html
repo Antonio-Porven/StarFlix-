@@ -1,4 +1,4 @@
-{%include 'navbar.html' %}
+
 <!doctype html>
 <html lang="en">
 <body style="background-color:Black;">
@@ -13,13 +13,14 @@
     <title>StarFlix.com</title>
 </head>
 <body>
+{%include 'navbar.html' %}
 <br></br>
 <center>
 
 {% for show in show_list %}
-<div class="card  mb-3" style="max-width: 1000px;" >
+<div class="card  mb-3" style="max-width: 900px;" >
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div style="text-align: left;">
         <a class="nav-link active" aria-current="page" href="{% url 'show-show' show.id %}"><img src = "{{ show.Cover_Image.url}} "
                                                                                                  class="rounded float-start" alt = 'no image found' width = '200' height=" 360"></a>
