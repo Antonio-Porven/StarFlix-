@@ -17,8 +17,10 @@
     <center>
         {% if profile %}
     <h1>{{ profile.user }}'s Profile</h1>
-            <img src="{{ profile.Profile_Image.url }}" alt="Content Cover Image" width="400" height="720">
-        <p>Bio: <p>{{ profile.Bio }}</p></p>
+            <img src="{{ profile.Profile_Image.url }}" alt="Content Cover Image" width="120" height="120">
+
+            <p><h3><strong>Bio:</strong></h3> <p>{{ profile.Bio }}</p></p>
+
             <p>Watching</p>
             {% for watching in profile.watching.all %}
         {{ watching }}

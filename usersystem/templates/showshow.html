@@ -92,29 +92,27 @@
         <h2><strong>Comments {{ content_type }}:</strong></h2>
     </div>
 
- <div class="text-center mb-5">
-    <div class="comments-container">
-        {% if show.showcomments_set.exists %}
-            {% for comment in show.showcomments_set.all %}
-                <div class="card mb-3" style="max-width: 840px;text-align: left;">
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <div style="text-align: left;">
-                                <a class="nav-link" href="{% url 'userprofile' comment.user.id %}">
-                                    <h5 class="card-title"><b>{{ comment.user }}</b></h5>
-                                </a>
-                                <p class="card-text">{{ comment.comment }}</p>
-                            </div>
-                        </div>
+
+   <div class="comments-container d-flex justify-content-center flex-wrap">
+
+    {% if show.showcomments_set.exists %}
+        {% for comment in show.showcomments_set.all %}
+            <div class="card mb-3" style="max-width: 1000px; text-align: left; margin-bottom: 10px;">
+                <div class="card-body">
+                    <div style="text-align: left;">
+                        <a class="nav-link" href="{% url 'userprofile' comment.user.id %}">
+                            <h5 class="card-title"><b>{{ comment.user }}</b></h5>
+                        </a>
+                        <p class="card-text">{{ comment.comment }}</p>
                     </div>
                 </div>
-                <div class="mb-3"></div> <!-- Add this line for spacing -->
-            {% endfor %}
-        {% else %}
-            <div class="text-center">No comments Yet...</div>
-        {% endif %}
-    </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="text-center">No comments Yet...</div>
+    {% endif %}
 </div>
+
 
 
 
