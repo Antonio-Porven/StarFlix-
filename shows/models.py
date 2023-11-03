@@ -88,7 +88,7 @@ class Profile(models.Model):
     Profile_Image= models.ImageField('Profile Picture', null=True, upload_to="images/",
                                     max_length=2000, blank=True, default='images/ProfileImage.png')
     Bio = models.CharField('Bio', max_length=120000, blank=True)
-    watching = models.ManyToManyField(Show)
+    watching = models.ManyToManyField(Show, null = True)
     backgroundcolor = models.CharField('backgroundcolor', max_length=120000, default='black')
 
     def __str__(self):
